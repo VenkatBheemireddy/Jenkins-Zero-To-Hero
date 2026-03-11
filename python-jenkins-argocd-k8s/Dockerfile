@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ COPY . .
 
 RUN pip install django==3.2
 
-RUN python manage.py migrate
+# RUN python manage.py migrate
 
 EXPOSE 8000
 
