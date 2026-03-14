@@ -67,7 +67,7 @@ echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.
 
 sudo apt-get update
 sudo apt-get install jenkins
-```
+
 Verify jenksins is Installed
 jenkins --version
 2.541.2 (Major.Minor.Patch)
@@ -75,8 +75,8 @@ Means:
  - Jenkins major version 2
  - 541st feature release
  - 2nd patch update
-
 ```
+
 
 **Note: ** By default, Jenkins will not be accessible to the external world due to the inbound traffic restriction by AWS. Open port 8080 in the inbound traffic rules as show below.
 
