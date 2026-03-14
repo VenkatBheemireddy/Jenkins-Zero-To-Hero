@@ -30,8 +30,8 @@ Pre-Requisites:
 Install Java
 
 ```
-sudo apt update
-sudo apt install openjdk-17-jre
+sudo apt update (It only refreshes the list of available packages and their latest versions)
+sudo apt install openjdk-17-jre  (Install Java Runtime Environment (JRE) version 17 from OpenJDK)
 ```
 
 Verify Java is Installed
@@ -43,13 +43,39 @@ java -version
 Now, you can proceed with installing Jenkins
 
 ```
+Not working:
 curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+Working:
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key | sudo tee /etc/apt/keyrings/jenkins-keyring.asc
+
+
+Not working:
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+Explanation of above command:
+a) curl downloads the Jenkins GPG key.
+b) The key is piped (|) to tee.
+c) tee writes the key to: /usr/share/keyrings/jenkins-keyring.asc
+d) > /dev/null discards the output from the terminal.
+
+Working:
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list
+
 sudo apt-get update
 sudo apt-get install jenkins
+```
+Verify jenksins is Installed
+jenkins --version
+2.541.2 (Major.Minor.Patch)
+Means:
+ - Jenkins major version 2
+ - 541st feature release
+ - 2nd patch update
+
 ```
 
 **Note: ** By default, Jenkins will not be accessible to the external world due to the inbound traffic restriction by AWS. Open port 8080 in the inbound traffic rules as show below.
